@@ -10,7 +10,5 @@ public class GestionComptesApp {
         c1.deposer(15000);
 
         System.out.println(c1.getNum() + " " + c1.getNomClient() + " " + c1.getSolde());
-        c1.setSolde(-2000);
-        System.out.println(c1.toString());
     }
 }

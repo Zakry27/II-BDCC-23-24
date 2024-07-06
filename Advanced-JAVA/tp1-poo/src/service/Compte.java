@@ -43,19 +43,27 @@ public class Compte {
             this.solde =  solde;
     }
 
-    public void retirer(double montant){
-        if(montant<=solde){
+    public void afficherCompteInfo() {
+        System.out.println("Numéro de compte : " + num);
+        System.out.println("Nom du client : " + nomClient);
+        System.out.println("Solde du compte : " + solde);
+    }
+
+    public void retirer(double montant) {
+        if (montant > 0 && montant <= solde) {
             solde -= montant;
-        }else {
-            System.out.println("Le solde est insuffisant !!!");
+            System.out.println("Retrait de " + montant + " effectué. Nouveau solde : " + solde);
+        } else {
+            System.out.println("Solde insuffisant pour effectuer le retrait.");
         }
     }
 
-    public void deposer(double montant){
-        solde += montant;
-    }
-
-    public String toString(){
-        return "{ Num : "+num+" NomClient : "+nomClient+" Solde : "+solde+"}";
+    public void deposer(double montant) {
+        if (montant > 0) {
+            solde += montant;
+            System.out.println("Dépôt de " + montant + " effectué. Nouveau solde : " + solde);
+        } else {
+            System.out.println("Le montant du dépôt doit être supérieur à zéro.");
+        }
     }
 }
