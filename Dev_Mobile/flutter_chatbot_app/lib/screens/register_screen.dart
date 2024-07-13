@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_chatbot_app/auth/auth_service.dart';
 import 'package:flutter_chatbot_app/widgets/my_button.dart';
 import 'package:flutter_chatbot_app/widgets/my_textfield.dart';
 
@@ -17,7 +18,33 @@ class RegisterScreen extends StatelessWidget {
   });
 
   // register method
-  void register() {}
+  void register(BuildContext context) {
+    // get auth serv
+    final authService = AuthService();
+    // create user if pwd match
+    if (_pwController.text == _confirmPwController.text) {
+      try {
+        authService.signUpWithEmailPassword(
+            _emailController.text, _pwController.text);
+      } catch (e) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text(e.toString()),
+          ),
+        );
+      }
+    }
+    // if pwd don't match
+    else {
+      showDialog(
+        context: context,
+        builder: (context) => const AlertDialog(
+          title: Text("Passwords don't match at all!"),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +95,7 @@ class RegisterScreen extends StatelessWidget {
             // login button
             MyButton(
               text: "Register",
-              onTap: register,
+              onTap: () => register(context),
             ),
             const SizedBox(height: 25),
             // Register now

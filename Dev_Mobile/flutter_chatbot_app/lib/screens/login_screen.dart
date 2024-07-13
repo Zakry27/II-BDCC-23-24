@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_chatbot_app/auth/auth_service.dart';
 import 'package:flutter_chatbot_app/widgets/my_button.dart';
 import 'package:flutter_chatbot_app/widgets/my_textfield.dart';
 
@@ -16,7 +17,24 @@ class LoginScreen extends StatelessWidget {
   });
 
   // login method
-  void login() {}
+  void login(BuildContext context) async {
+    // auth service
+    final authService = AuthService();
+    // try login
+    try {
+      await authService.signInWithEmailPassword(
+          _emailController.text, _pwController.text);
+    }
+    // catch errors
+    catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(e.toString()),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +77,7 @@ class LoginScreen extends StatelessWidget {
             // login button
             MyButton(
               text: "Login",
-              onTap: login,
+              onTap: () => login(context),
             ),
             const SizedBox(height: 25),
             // Register now
