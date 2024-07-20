@@ -1,16 +1,31 @@
+import 'package:chatbot_app/pages/chat_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomeScreenState extends State<HomeScreen> {
   // padding constants
   final double horizontalPadding = 40;
   final double verticalPadding = 25;
+
+  bool _showSpinner = true;
+
+  @override
+  void initState() {
+    super.initState();
+    // Hide the spinner after 10 seconds
+    Future.delayed(const Duration(seconds: 10), () {
+      setState(() {
+        _showSpinner = false;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +73,7 @@ class _HomePageState extends State<HomePage> {
                     "Welcome Home,",
                     style: TextStyle(fontSize: 20, color: Colors.grey.shade800),
                   ),
-                  Text(
+                  const Text(
                     'ZAKARIA CHARJAOUI',
                     style: TextStyle(
                       fontSize: 40,
@@ -93,8 +108,37 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             const SizedBox(height: 10),
+
+            // Spinkit and No recent convos text
+            Expanded(
+              child: Center(
+                child: _showSpinner
+                    ? SpinKitCircle(
+                        color: Colors.grey[800],
+                        size: 50.0,
+                      )
+                    : Text(
+                        "No recent chat, click the button to start a new chat",
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.grey[500],
+                        ),
+                      ),
+              ),
+            ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).pop();
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => ChatScreen()));
+        },
+        tooltip: 'Start New Chat',
+        backgroundColor: Colors.black,
+        foregroundColor: Colors.white,
+        child: const Icon(Icons.textsms_outlined),
       ),
     );
   }
