@@ -9,3 +9,6 @@ Ce projet Java illustre la mise en œuvre d'un service web simple en utilisant l
 ![Convertion du EUR vers MAD](./Capture/Capture_3.png)
 ![Methode getCompte](./Capture/Capture_4.png)
 ![Methode listComptes](./Capture/Capture_5.png)
+
+## Author
+Charjaoui Zakaria - [Github](https://github.com/Zakry27)
